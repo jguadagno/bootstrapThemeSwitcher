@@ -1,0 +1,36 @@
+{
+    "name": "bootstrapThemeSwitcher",
+    "title": "Bootstrap Theme Switcher",
+    "description": "jQuery plugin for dynamically loading Twitter Bootstrap themes from Bootswatch. This plugin allows for the automatic populating of UL and SELECT elements with the names of themes available, can switch a theme, save the selected theme to a cookie and load the selected theme from a cookie.",
+    "keywords": [
+        "Twitter",
+        "Bootstrap",
+		"Bootswatch",
+		"Themes"
+    ],
+    "version": "1.0.0",
+    "author": {
+        "name": "Joseph Guadagno",
+        "url": "https://github.com/jquadagno/"
+    },
+    "maintainers": [
+        {
+            "name": "Joseph Guadagno",
+            "email": "jguadagno@hotmail.com",
+            "url": "http://www.josephguadagno.net"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/jguadagno/bootstrapThemeSwitcher/blob/master/LICENSE"
+        }
+    ],
+    "bugs": "https://github.com/jguadagno/bootstrapThemeSwitcher/issues",
+    "homepage": "https://github.com/jguadagno/bootstrapThemeSwitcher",
+    "docs": "https://github.com/jguadagno/bootstrapThemeSwitcher/wiki",
+    "download": "https://github.com/jguadagno/bootstrapThemeSwitcher",
+    "dependencies": {
+        "jquery": ">=1.11.1"
+    }
+}
