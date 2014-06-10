@@ -11,14 +11,11 @@
     "version": "1.0.1",
     "author": {
         "name": "Joseph Guadagno",
-        "url": "https://github.com/jquadagno/"
+		"email": "jguadagno@hotmail.com",
+		"url": "http://www.josephguadagno.net"
     },
     "maintainers": [
-        {
-            "name": "Joseph Guadagno",
-            "email": "jguadagno@hotmail.com",
-            "url": "http://www.josephguadagno.net"
-        }
+
     ],
     "licenses": [
         {
