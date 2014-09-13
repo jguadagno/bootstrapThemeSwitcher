@@ -124,5 +124,23 @@ The number of days the cookies should expire
 ### cookiePath
 
     cookiePath: '/'
-    
+        
 The path the cookie should be stored
+
+### defaultCssFile
+
+    defaultCssFile: '//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'
+    
+The default css file the plugin should use if it can not load the themes from Bootswatch
+
+### bootswatchApiUrl
+
+    bootswatchApiUrl: 'http://api.bootswatch.com
+    
+The url for the bootswatch api
+    
+### bootswatchApiVersion
+    
+    bootswatchApiVersion: '3'
+
+The version of the bootswatch api to use.

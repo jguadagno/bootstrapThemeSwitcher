@@ -1,41 +1,39 @@
-; (function ($) {
+/**
+* jQuery Twitter Bootstrap Theme Switcher v1.0.2
+* https://github.com/jguadagno/bootstrapThemeSwitcher
+*
+* Copyright 2014, Joseph Guadagno
+* Released under Apache 2.0 license
+* http://apache.org/licenses/LICENSE-2.0.html
+*/
+;(function ($, window, document, undefined) {
 
     "use strict";
 
-    var methods = {
-        init: function (options) {
+    var old = $.fn.bootstrapThemeSwitcher;
 
-            var themes = getThemes();
+    // Constructor
+    var BootstrapThemeSwitcher = function (element, options) {
 
-            return $(this).each(function () {
-                var $this = $(this);
+        this.$element = $(element);
+        this.settings = $.extend({}, $.fn.bootstrapThemeSwitcher.defaults, options);
+        this.themes = [];
+        this.getThemes();
 
-                var settings = $.extend({}, $.fn.bootstrapThemeSwitcher.defaults, options);
-                $this.data('bootstrapThemeSwitcher', settings);
-                addThemesToControl($this, settings, themes);
-                return this;
-            });
-        },
-        destroy: function () {
-            return $(this).each(function () {
-                var $this = $(this);
-                $this.removeData('bootstrapThemeSwitcher');
-            });
-        },
+        return this;
+    };
+
+    // Prototype
+    BootstrapThemeSwitcher.prototype = {
         clear: function () {
             console.log('bootstrapThemeSwitcher.clear');
-            return $(this).each(function () {
-                $(this).empty();
+            return this.$element.each(function () {
+                this.$element.empty();
             });
         },
         update: function () {
             console.log('bootstrapThemeSwitcher.update');
-            var themes = getThemes();
-            return $(this).each(function () {
-                var $this = $(this);
-                addThemesToControl($this, $this.data('bootstrapThemeSwitcher'), themes);
-                return this;
-            });
+            this.getThemes();
         },
         switchTheme: function (name, cssFile) {
             console.log('bootstrapThemeSwitcher.switchTheme: name: "' + name + '", cssFile: "' + cssFile + '"');
@@ -44,10 +42,10 @@
 
             var id = settings.cssThemeLink;
 
-            if (cssFile == undefined) {
-                cssFile = '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css';
+            if (cssFile === undefined) {
+                cssFile = this.settings.defaultCssFile;
             }
-            if (name == undefined) {
+            if (name === undefined) {
                 name = cssFile;
             }
 
@@ -57,7 +55,7 @@
             // Replace the theme file
             var selector = '#' + id;
             var cssLink = $(selector);
-            if (cssLink.length == 0) {
+            if (cssLink.length === 0) {
                 var cssLinkHtml = "<link rel='stylesheet' id='" + id + "' href='" + cssFile + "' type='text/css' />";
                 $('head link[rel="stylesheet"]:first').before(cssLinkHtml);
                 cssLink = $(selector);
@@ -66,7 +64,7 @@
 
             // check to see if they want it to be saved
             if (settings.saveToCookie) {
-                if ($.cookie == undefined) {
+                if ($.cookie === undefined) {
                     console.warn('bootstrapThemeSwitcher: saveToCookie is set to true but jQuery.cookie is not present');
                     return;
                 }
@@ -75,76 +73,102 @@
             }
         },
         loadThemeFromCookie: function (options) {
-            if ($.cookie == undefined) {
+            if ($.cookie === undefined) {
                 console.warn('bootstrapThemeSwitcher: loadThemeFromCookie was called but jQuery.cookie is not present');
                 return;
             }
             var settings = $.extend({}, $.fn.bootstrapThemeSwitcher.defaults, options);
             var themeName = $.cookie(settings.cookieThemeName);
             var themeCss = $.cookie(settings.cookieThemeCss);
-            $().bootstrapThemeSwitcher('switchTheme', themeName, themeCss);
+            this.switchTheme(themeName, themeCss);
 
-        }
-    };
+        },
 
-    function addThemesToControl(control, settings, themes) {
+        addThemesToControl: function() {
 
-        if (control.is('ul')) {
-
-            console.log('bootstrapThemeSelector: UL element selected');
-            control.empty();
-            $.each(themes, function (i, value) {
-                var $this = $(this);
-                $this.data('bootstrapThemeSwitcher', settings);
-                var li = $("<li />")
-                    .append("<a href='#'>" + value.name + "</a>")
-                    .data('bootstrapThemeSwitcher', settings)
-                    .on('click', function () {
-                        $(this).bootstrapThemeSwitcher('switchTheme', value.name, value.cssCdn);
-                    });
-                control.append(li);
-            });
-
-        } else if (control.is('select')) {
-            console.log('bootstrapThemeSelector: SELECT element selected');
-            control.empty();
-
-            $.each(themes, function (i, value) {
-                control.append("<option value='" + value.cssCdn + "'>" + value.name + "</option>");
-            });
-            control.on('change', function () {
-                var optionSelected = $("option:selected", this);
-                $(this).bootstrapThemeSwitcher('switchTheme', optionSelected.text(), optionSelected.val());
-            });
-
-        } else {
-            console.warn('bootstrapThemeSelector only works with ul or select elements');
-        }
-    };
-
-    function getThemes() {
-        var themes;
-        $.ajax({
-            url: 'http://api.bootswatch.com/3/',
-            async: false,
-            dataType: 'json',
-            success: function (data) {
-                themes = data.themes;
+            if (this.$element === undefined) {
+                console.error('bootstrapThemeSelector: addThemesToControl: Element is undefined');
+                return;
             }
-        });
-        themes.splice(0,0, {name: 'default', cssCdn: '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'});
-        return themes;
-    }
 
-    $.fn.bootstrapThemeSwitcher = function (method) {
+            if (this.themes === undefined) {
+                console.error('bootstrapThemeSelector: addThemesToControl: Themes is undefined');
+                return;
+            }
 
-        if (methods[method]) {
-            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+            var base = this;
+
+            if (this.$element.is('ul')) {
+
+                console.log('bootstrapThemeSelector: UL element selected');
+                this.$element.empty();
+                $.each(this.themes, function (i, value) {
+
+                    var li = $("<li />")
+                        .append("<a href='#'>" + value.name + "</a>")
+                        .on('click', function () {
+                            base.switchTheme(value.name, value.cssCdn);
+                        });
+                    base.$element.append(li);
+                });
+
+            } else if (this.$element.is('select')) {
+                console.log('bootstrapThemeSelector: SELECT element selected');
+                this.$element.empty();
+
+                $.each(this.themes, function (i, value) {
+                    base.$element.append("<option value='" + value.cssCdn + "'>" + value.name + "</option>");
+                });
+                this.$element.on('change', function () {
+                    var optionSelected = $("option:selected", this);
+                    base.switchTheme(optionSelected.text(), optionSelected.val());
+                });
+
+            } else {
+                console.warn('bootstrapThemeSelector only works with ul or select elements');
+            }
+        },
+
+        getThemes: function() {
+
+            var base = this;
+
+            $.ajax({
+                url: this.settings.bootswatchApiUrl + "/" + this.settings.bootswatchApiVersion,
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.themes === undefined) {
+                        return null;
+                    }
+                    //base.themes = data.themes;
+                    //base.themes.push({name: 'default',cssCdn: base.settings.defaultCssFile} );
+                    base.themes = data.themes;
+                    base.themes.splice(0,0, {name: 'default',cssCdn: base.settings.defaultCssFile});
+
+                    base.addThemesToControl();
+                }
+            });
         }
-        if (typeof method === 'object' || !method) {
-            return methods.init.apply(this, arguments);
+    };
+
+
+    // Plugin
+    $.fn.bootstrapThemeSwitcher = function (option) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        var methodReturn;
+
+        var $this = $(this);
+        var data = $this.data('bootstrapThemeSwitcher');
+        var options = typeof option === 'object' && option;
+
+        if (!data) {
+            $this.data('bootstrapThemeSwitcher', (data = new BootstrapThemeSwitcher(this, options) ));
         }
-        $.error('Method "' + method + '" is not supported by bootstrapThemeSwitcher()');
+        if (typeof option === 'string') {
+            methodReturn = data[ option ].apply(data, args);
+        }
+        return ( methodReturn === undefined ) ? $this : methodReturn;
     };
 
     $.fn.bootstrapThemeSwitcher.defaults = {
@@ -153,6 +177,16 @@
         cookieThemeName: 'bootstrapTheme.name',
         cookieThemeCss: 'boostrapTheme.css',
         cookieExpiration: 7,
-        cookiePath: '/'
+        cookiePath: '/',
+        defaultCssFile: '//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css',
+        bootswatchApiUrl: 'http://api.bootswatch.com',
+        bootswatchApiVersion: '3',
     };
-})(jQuery);
+
+    $.fn.bootstrapThemeSwitcher.Constructor = BootstrapThemeSwitcher;
+
+    $.fn.bootstrapThemeSwitcher.noConflict = function () {
+        $.fn.BootstrapThemeSwitcher = old;
+        return this;
+    };
+})(jQuery, window, document);
