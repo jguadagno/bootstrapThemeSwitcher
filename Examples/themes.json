@@ -1,0 +1,21 @@
+{
+  "themes":
+  [
+    {"name": "amelia", "cssCdn": "css/themes/amelia/bootstrap.min.css"},
+    {"name": "cerulean", "cssCdn": "css/themes/cerulean/bootstrap.min.css"},
+    {"name": "cosmo", "cssCdn": "css/themes/cosmo/bootstrap.min.css"},
+    {"name": "cyborg", "cssCdn": "css/themes/cyborg/bootstrap.min.css"},
+    {"name": "darkly", "cssCdn": "css/themes/darkly/bootstrap.min.css"},
+    {"name": "flatly", "cssCdn": "css/themes/flatly/bootstrap.min.css"},
+    {"name": "journal", "cssCdn": "css/themes/journal/bootstrap.min.css"},
+    {"name": "lumen", "cssCdn": "css/themes/lumen/bootstrap.min.css"},
+    {"name": "readable", "cssCdn": "css/themes/readable/bootstrap.min.css"},
+    {"name": "shamrock", "cssCdn": "css/themes/shamrock/bootstrap.min.css"},
+    {"name": "simplex", "cssCdn": "css/themes/simplex/bootstrap.min.css"},
+    {"name": "slate", "cssCdn": "css/themes/slate/bootstrap.min.css"},
+    {"name": "spacelab", "cssCdn": "css/themes/spacelab/bootstrap.min.css"},
+    {"name": "superhero", "cssCdn": "css/themes/superhero/bootstrap.min.css"},
+    {"name": "united", "cssCdn": "css/themes/united/bootstrap.min.css"},
+    {"name": "yeti", "cssCdn": "css/themes/yeti/bootstrap.min.css"}
+  ]
+}

@@ -14,7 +14,7 @@ Please read the [issue guidelines](https://github.com/jguadagno/bootstrapThemeSw
 **Dynamically Load Theme Name**
 The plugin will pull in a list of the latest themes from [Bootswatch](http://www.bootswatch.com). This will populate a `select` or `ul` element with a list of themes to choose.
 **Switch the Bootstrap Theme**
-The dynamically loaded themes will automatically switch the theme when choosen.
+The dynamically loaded themes will automatically switch the theme when chosen.
 **Saves theme to a cookie**
 Takes the selected theme information and saves it to a cookie to reload later
 **Loads a theme from a cookie**
@@ -144,3 +144,10 @@ The url for the bootswatch api
     bootswatchApiVersion: '3'
 
 The version of the bootswatch api to use.
+
+### localFeed
+
+    localFeed: ''
+
+The path to a JSON file that contains the themes you want to use. If this parameter is used, the control will be loaded
+the themes from here and not go to the bootswatchApiUrl. A sample of the json file can be found at [themes.json](/examples/themes.json)

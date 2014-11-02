@@ -1,5 +1,5 @@
 /**
-* jQuery Twitter Bootstrap Theme Switcher v1.0.2
+* jQuery Twitter Bootstrap Theme Switcher v1.0.3
 * https://github.com/jguadagno/bootstrapThemeSwitcher
 *
 * Copyright 2014, Joseph Guadagno
@@ -17,7 +17,7 @@
 
         this.$element = $(element);
         this.settings = $.extend({}, $.fn.bootstrapThemeSwitcher.defaults, options);
-        this.themes = [];
+        this.themesList = [];
         this.getThemes();
 
         return this;
@@ -57,7 +57,12 @@
             var cssLink = $(selector);
             if (cssLink.length === 0) {
                 var cssLinkHtml = "<link rel='stylesheet' id='" + id + "' href='" + cssFile + "' type='text/css' />";
-                $('head link[rel="stylesheet"]:first').before(cssLinkHtml);
+                var firstCssLink = $('head link[rel="stylesheet"]:first');
+                if (firstCssLink.length === 0) {
+                    $('head').append(cssLinkHtml);
+                } else {
+                    firstCssLink.before(cssLinkHtml);
+                }
                 cssLink = $(selector);
             }
             cssLink.attr('href', cssFile);
@@ -83,7 +88,16 @@
             this.switchTheme(themeName, themeCss);
 
         },
-
+        addTheme: function(name, cssFile, start, deleteCount) {
+            if (start === undefined) {
+                start == 0;
+            }
+            if (deleteCount === undefined) {
+                deleteCount == 0;
+            }
+            this.themesList.splice(start, deleteCount, {name: name, cssCdn: cssFile});
+            this.addThemesToControl();
+        },
         addThemesToControl: function() {
 
             if (this.$element === undefined) {
@@ -91,7 +105,7 @@
                 return;
             }
 
-            if (this.themes === undefined) {
+            if (this.themesList === undefined) {
                 console.error('bootstrapThemeSelector: addThemesToControl: Themes is undefined');
                 return;
             }
@@ -102,7 +116,7 @@
 
                 console.log('bootstrapThemeSelector: UL element selected');
                 this.$element.empty();
-                $.each(this.themes, function (i, value) {
+                $.each(this.themesList, function (i, value) {
 
                     var li = $("<li />")
                         .append("<a href='#'>" + value.name + "</a>")
@@ -116,7 +130,7 @@
                 console.log('bootstrapThemeSelector: SELECT element selected');
                 this.$element.empty();
 
-                $.each(this.themes, function (i, value) {
+                $.each(this.themesList, function (i, value) {
                     base.$element.append("<option value='" + value.cssCdn + "'>" + value.name + "</option>");
                 });
                 this.$element.on('change', function () {
@@ -133,6 +147,25 @@
 
             var base = this;
 
+            if (this.settings.localFeed !== null && this.settings.localFeed !== '') {
+                // Get the file
+
+                $.ajax({
+                    url: this.settings.localFeed,
+                    async: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        base.themesList = data.themes;
+                        base.addThemesToControl();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Failed to retrieve the local feed from '" + base.settings.localFeed + "'")
+                    }
+
+                });
+                return;
+            }
+
             $.ajax({
                 url: this.settings.bootswatchApiUrl + "/" + this.settings.bootswatchApiVersion,
                 async: false,
@@ -141,14 +174,21 @@
                     if (data.themes === undefined) {
                         return null;
                     }
-                    //base.themes = data.themes;
-                    //base.themes.push({name: 'default',cssCdn: base.settings.defaultCssFile} );
-                    base.themes = data.themes;
-                    base.themes.splice(0,0, {name: 'default',cssCdn: base.settings.defaultCssFile});
+                    base.themesList = data.themes;
+                    base.themesList.splice(0,0, {name: 'default',cssCdn: base.settings.defaultCssFile});
 
                     base.addThemesToControl();
                 }
             });
+        },
+        themes : function (newThemeList) {
+            if (newThemeList === undefined) {
+                return this.themesList;   
+            }
+            else {
+                // TODO: Set the associated control.
+                this.themesList = newThemeList;
+            }
         }
     };
 
@@ -181,6 +221,8 @@
         defaultCssFile: '//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css',
         bootswatchApiUrl: 'http://api.bootswatch.com',
         bootswatchApiVersion: '3',
+        loadFromBootswatch: true,
+        localFeed: ''
     };
 
     $.fn.bootstrapThemeSwitcher.Constructor = BootstrapThemeSwitcher;

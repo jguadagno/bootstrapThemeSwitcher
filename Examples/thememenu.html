@@ -4,12 +4,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Introduction to Twitter Bootstrap">
+        <meta name="description" content="Twitter Bootstrap Theme Switcher">
         <meta name="author" content="Joseph Guadagno">
         <link rel="shortcut icon" href="favicon.ico">
-        <title>Introduction to Twitter Bootstrap - Theme Switcher Test</title>
-        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Twitter Bootstrap Theme Switcher Test</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -93,28 +92,25 @@
             <nav class="navbar navbar-inverse navbar-fixed-bottom">
                 <div class="navbar-inner navbar-content-center">
                     <div>
-                        <div class="col-xs-1 col-sm-1 "><a href="#" class="btn btn-default"><i class="fa fa-angle-left"></i></a></div>
-                        <div class="col-xs-10 col-sm-3">
+                        <div class="col-xs-1 col-sm-1 "><a href="#" class="btn btn-default">&lt;</a></div>
+                        <div class="col-xs-10 col-sm-4">
                             <p class="text-center navbar-text">&copy;2013-2014, Joseph Guadagno</p>
                         </div>
                         <div class="hidden-xs col-sm-3">
                             <a class="text-center navbar-text" href="http://www.josephguadagno.net" target="_blank" title="josephguadagno.net">josephguadagno.net</a>
                         </div>
-                        <div class="hidden-xs col-sm-2">
+                        <div class="hidden-xs col-sm-3">
                             <a class="text-center navbar-text" href="http://www.twitter.com/jguadagno" target="_blank">@jguadagno</a>
                         </div>
-                        <div class="hidden-xs col-sm-2">
-                            <p class="text-center navbar-text"><span id="width"></span> x <span id="height"></span></p>
-                        </div>
-                        <div class="col-xs-1 col-sm-1"><a href="/tour/index.html" class="btn btn-default pull-right"><i class="fa fa-angle-right"></i></a></div>
+                        <div class="col-xs-1 col-sm-1"><a href="/tour/index.html" class="btn btn-default pull-right">&gt;</a></div>
                     </div>
                 </div>
             </nav>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="js/jquery-1.11.1.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <!-- Include if you want cookie support (http://plugins.jquery.com/cookie/) -->
         <!-- <script src="/js/jquery.cookie.js"></script> -->
 		<script src="../jquery.bootstrapThemeSwitcher.js"></script>
@@ -122,8 +118,8 @@
             $().ready(function () {
 
                 // Setup the theme selectors
-                $('#ThemeSelect').bootstrapThemeSwitcher();
                 $('#ThemeList').bootstrapThemeSwitcher();
+                $('#ThemeSelect').bootstrapThemeSwitcher({localFeed: 'themes.json'});
 
                 // Change the theme
                 //$().bootstrapThemeSwitcher('switchTheme', 'default', '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css');
