@@ -6,16 +6,21 @@
         "Twitter",
         "Bootstrap",
 		"Bootswatch",
-		"Themes"
+		"Themes",
+        "jquery-plugin"
     ],
-    "version": "1.1.3",
+    "version": "1.1.4",
     "author": {
         "name": "Joseph Guadagno",
 		"email": "jguadagno@hotmail.com",
 		"url": "http://www.josephguadagno.net"
     },
     "maintainers": [
-
+        {
+            "name": "Joseph Guadagno",
+		  "email": "jguadagno@hotmail.com",
+		  "url": "http://www.josephguadagno.net"
+        }
     ],
     "licenses": [
         {

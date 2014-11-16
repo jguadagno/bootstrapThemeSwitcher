@@ -1,5 +1,4 @@
 #bootstrapThemeSwitcher
-======================
 
 jQuery plugin for dynamically loading Twitter Bootstrap themes from Bootswatch. This plugin allows for the automatic populating of `UL` and `SELECT` elements with the names of themes available, can switch a theme, save the selected theme to a cookie and load the selected theme from a cookie.
 
@@ -135,7 +134,7 @@ The default css file the plugin should use if it can not load the themes from Bo
 
 ### bootswatchApiUrl
 
-    bootswatchApiUrl: 'http://api.bootswatch.com
+    bootswatchApiUrl: 'http://api.bootswatch.com'
     
 The url for the bootswatch api
     
@@ -150,4 +149,4 @@ The version of the bootswatch api to use.
     localFeed: ''
 
 The path to a JSON file that contains the themes you want to use. If this parameter is used, the control will be loaded
-the themes from here and not go to the bootswatchApiUrl. A sample of the json file can be found at [themes.json](/examples/themes.json)
+the themes from here and not go to the bootswatchApiUrl. A sample of the json file can be found at [themes.json](https://github.com/jguadagno/bootstrapThemeSwitcher/blob/master/Examples/themes.json)
