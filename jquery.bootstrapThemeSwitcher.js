@@ -110,6 +110,25 @@
                 return;
             }
 
+            //If BootSwatch exclusions are set
+            if(this.settings.excludeBootswatch){
+              //Split the string on ,
+              if(this.settings.excludeBootswatch.indexOf(",") !== -1){
+                var excludeBootswatchs = this.settings.excludeBootswatch.split(',');
+              }else{
+                var excludeBootswatchs = [];
+                excludeBootswatchs.push(this.settings.excludeBootswatch);
+              }
+
+              var tempThemeList = this.themesList;
+              $.each(tempThemeList, function (i, value) {
+                if( jQuery.inArray( value.name, excludeBootswatchs ) !== -1 ){
+                  tempThemeList.splice(i,1);
+                }
+              });
+              this.themesList = tempThemeList;
+            }
+
             var base = this;
 
             if (this.$element.is('ul')) {
@@ -183,7 +202,7 @@
         },
         themes : function (newThemeList) {
             if (newThemeList === undefined) {
-                return this.themesList;   
+                return this.themesList;
             }
             else {
                 // TODO: Set the associated control.
@@ -222,7 +241,8 @@
         bootswatchApiUrl: 'http://api.bootswatch.com',
         bootswatchApiVersion: '3',
         loadFromBootswatch: true,
-        localFeed: ''
+        localFeed: '',
+        excludeBootswatch:''  // Comma seperated list of BootSwatch names e.g. Slate,Yeti
     };
 
     $.fn.bootstrapThemeSwitcher.Constructor = BootstrapThemeSwitcher;
