@@ -122,8 +122,10 @@
 
               var tempThemeList = this.themesList;
               $.each(tempThemeList, function (i, value) {
-                if( jQuery.inArray( value.name, excludeBootswatchs ) !== -1 ){
-                  tempThemeList.splice(i,1);
+                if(value && value.name){
+                  if( jQuery.inArray( value.name, excludeBootswatchs ) !== -1 ){
+                    tempThemeList.splice(i,1);
+                  }
                 }
               });
               this.themesList = tempThemeList;
@@ -242,7 +244,7 @@
         bootswatchApiVersion: '3',
         loadFromBootswatch: true,
         localFeed: '',
-        excludeBootswatch:''  // Comma seperated list of BootSwatch names e.g. Slate,Yeti
+        excludeBootswatch:''
     };
 
     $.fn.bootstrapThemeSwitcher.Constructor = BootstrapThemeSwitcher;
