@@ -137,12 +137,23 @@
 
                 console.log('bootstrapThemeSelector: UL element selected');
                 this.$element.empty();
-                $.each(this.themesList, function (i, value) {
 
+                var cssClass;
+                $.each(this.themesList, function (i, value) {
+                    //Add a class of "active" to the current BootSwatch
+                    cssClass = null;
+                    if(value.name === $.cookie('bootstrapTheme.name')){
+                      cssClass = "active";
+                    }
                     var li = $("<li />")
+                        .attr("class",cssClass)
                         .append("<a href='#'>" + value.name + "</a>")
                         .on('click', function () {
                             base.switchTheme(value.name, value.cssCdn);
+
+                            //Remove previous "active" class and apply to latest clicked element
+                            $(this).parent().find("li").removeClass("active");
+                            $(this).addClass("active");
                         });
                     base.$element.append(li);
                 });
@@ -151,8 +162,13 @@
                 console.log('bootstrapThemeSelector: SELECT element selected');
                 this.$element.empty();
 
+                var optionSelectedMarker;
                 $.each(this.themesList, function (i, value) {
-                    base.$element.append("<option value='" + value.cssCdn + "'>" + value.name + "</option>");
+                    optionSelectedMarker = null;
+                    if(value.name === $.cookie('bootstrapTheme.name')){
+                      optionSelectedMarker = "selected";
+                    }
+                    base.$element.append("<option " + optionSelectedMarker + " value='" + value.cssCdn + "'>" + value.name + "</option>");
                 });
                 this.$element.on('change', function () {
                     var optionSelected = $("option:selected", this);
