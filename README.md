@@ -155,4 +155,4 @@ the themes from here and not go to the bootswatchApiUrl. A sample of the json fi
 
     excludeBootswatch: ''
 
-Comma seperated list of BootSwatch names (e.g. Slate,Yeti) that should be excluded from the rendered <ul> or <select>
+Comma seperated list of BootSwatch names (e.g. Slate,Yeti) that should be excluded from the rendered &lt;ul&gt; or &lt;select&gt;
