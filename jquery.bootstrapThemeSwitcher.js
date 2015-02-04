@@ -109,18 +109,50 @@
                 return;
             }
 
+            //If BootSwatch exclusions are set
+            if(this.settings.excludeBootswatch){
+              //Split the string on ,
+              if(this.settings.excludeBootswatch.indexOf(",") !== -1){
+                var excludeBootswatchs = this.settings.excludeBootswatch.split(',');
+              }else{
+                var excludeBootswatchs = [];
+                excludeBootswatchs.push(this.settings.excludeBootswatch);
+              }
+
+              var tempThemeList = this.themesList;
+              $.each(tempThemeList, function (i, value) {
+                if(value && value.name){
+                  if( jQuery.inArray( value.name, excludeBootswatchs ) !== -1 ){
+                    tempThemeList.splice(i,1);
+                  }
+                }
+              });
+              this.themesList = tempThemeList;
+            }
+
             var base = this;
 
             if (this.$element.is('ul')) {
 
                 console.log('bootstrapThemeSelector: UL element selected');
                 this.$element.empty();
-                $.each(this.themesList, function (i, value) {
 
+                var cssClass;
+                $.each(this.themesList, function (i, value) {
+                    //Add a class of "active" to the current BootSwatch
+                    cssClass = null;
+                    if(value.name === $.cookie('bootstrapTheme.name')){
+                      cssClass = "active";
+                    }
                     var li = $("<li />")
+                        .attr("class",cssClass)
                         .append("<a href='#'>" + value.name + "</a>")
                         .on('click', function () {
                             base.switchTheme(value.name, value.cssCdn);
+
+                            //Remove previous "active" class and apply to latest clicked element
+                            $(this).parent().find("li").removeClass("active");
+                            $(this).addClass("active");
                         });
                     base.$element.append(li);
                 });
@@ -129,8 +161,13 @@
                 console.log('bootstrapThemeSelector: SELECT element selected');
                 this.$element.empty();
 
+                var optionSelectedMarker;
                 $.each(this.themesList, function (i, value) {
-                    base.$element.append("<option value='" + value.cssCdn + "'>" + value.name + "</option>");
+                    optionSelectedMarker = null;
+                    if(value.name === $.cookie('bootstrapTheme.name')){
+                      optionSelectedMarker = "selected";
+                    }
+                    base.$element.append("<option " + optionSelectedMarker + " value='" + value.cssCdn + "'>" + value.name + "</option>");
                 });
                 this.$element.on('change', function () {
                     var optionSelected = $("option:selected", this);
@@ -182,7 +219,7 @@
         },
         themes : function (newThemeList) {
             if (newThemeList === undefined) {
-                return this.themesList;   
+                return this.themesList;
             }
             else {
                 // TODO: Set the associated control.
@@ -221,7 +258,8 @@
         bootswatchApiUrl: 'http://api.bootswatch.com',
         bootswatchApiVersion: '3',
         loadFromBootswatch: true,
-        localFeed: ''
+        localFeed: '',
+        excludeBootswatch:''
     };
 
     $.fn.bootstrapThemeSwitcher.Constructor = BootstrapThemeSwitcher;

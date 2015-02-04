@@ -4,8 +4,8 @@ jQuery plugin for dynamically loading Twitter Bootstrap themes from Bootswatch. 
 
 ## Support
 
-* Bugs and Feature requests  
-**Bugs** and **Feature requests** can be reported using the [issues tracker](https://github.com/jguadagno/bootstrapThemeSwitcher/issues).  
+* Bugs and Feature requests
+**Bugs** and **Feature requests** can be reported using the [issues tracker](https://github.com/jguadagno/bootstrapThemeSwitcher/issues).
 Please read the [issue guidelines](https://github.com/jguadagno/bootstrapThemeSwitcher/blob/master/CONTRIBUTING.md) before posting.
 
 ## Features
@@ -93,22 +93,22 @@ passing a plain object to the options arguement. Per-call options over the defau
 ### cssThemeLink
 
     cssThemeLink: 'bootstrapTheme'
-    
+
 The ID used for the bootstrap theme css file
 
 ### saveToCookie
 
     saveToCookie: true
-    
+
 If true, a cookie will be saved with the currently selected theme
 
-### cookieThemeName 
+### cookieThemeName
 
     bootstrapTheme.name
-    
+
 The name of the cookie to be used to store the theme name
 
-### cookieThemeCss 
+### cookieThemeCss
 
     cookieThemeCss: 'bootstrapTheme.css'
 
@@ -123,23 +123,23 @@ The number of days the cookies should expire
 ### cookiePath
 
     cookiePath: '/'
-        
+
 The path the cookie should be stored
 
 ### defaultCssFile
 
     defaultCssFile: '//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'
-    
+
 The default css file the plugin should use if it can not load the themes from Bootswatch
 
 ### bootswatchApiUrl
 
     bootswatchApiUrl: 'http://api.bootswatch.com'
-    
+
 The url for the bootswatch api
-    
+
 ### bootswatchApiVersion
-    
+
     bootswatchApiVersion: '3'
 
 The version of the bootswatch api to use.
@@ -150,3 +150,9 @@ The version of the bootswatch api to use.
 
 The path to a JSON file that contains the themes you want to use. If this parameter is used, the control will be loaded
 the themes from here and not go to the bootswatchApiUrl. A sample of the json file can be found at [themes.json](https://github.com/jguadagno/bootstrapThemeSwitcher/blob/master/Examples/themes.json)
+
+### excludeBootswatch
+
+    excludeBootswatch: ''
+
+Comma seperated list of BootSwatch names (e.g. Slate,Yeti) that should be excluded from the rendered &lt;ul&gt; or &lt;select&gt;
