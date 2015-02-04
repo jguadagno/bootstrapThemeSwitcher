@@ -1,10 +1,9 @@
 /**
-* jQuery Twitter Bootstrap Theme Switcher v1.0.3
+* jQuery Twitter Bootstrap Theme Switcher v1.1.5
 * https://github.com/jguadagno/bootstrapThemeSwitcher
 *
 * Copyright 2014, Joseph Guadagno
-* Released under Apache 2.0 license
-* http://apache.org/licenses/LICENSE-2.0.html
+* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
 */
 ;(function ($, window, document, undefined) {
 
