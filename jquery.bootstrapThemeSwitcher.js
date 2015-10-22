@@ -89,10 +89,10 @@
         },
         addTheme: function(name, cssFile, start, deleteCount) {
             if (start === undefined) {
-                start == 0;
+                start = 0;
             }
             if (deleteCount === undefined) {
-                deleteCount == 0;
+                deleteCount = 0;
             }
             this.themesList.splice(start, deleteCount, {name: name, cssCdn: cssFile});
             this.addThemesToControl();
@@ -195,7 +195,7 @@
                         base.addThemesToControl();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        console.error("Failed to retrieve the local feed from '" + base.settings.localFeed + "'")
+                        console.error("Failed to retrieve the local feed from '" + base.settings.localFeed + "'");
                     }
 
                 });
