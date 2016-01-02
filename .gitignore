@@ -6,6 +6,9 @@
 *.user
 *.sln.docstates
 
+# Examples
+Examples/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -56,6 +59,9 @@ dlldata.c
 
 # Chutzpah Test files
 _Chutzpah*
+
+# Idea
+.idea/
 
 # Visual C++ cache files
 ipch/
