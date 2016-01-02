@@ -203,7 +203,7 @@
             }
 
             $.ajax({
-                url: this.settings.bootswatchApiUrl + "/" + this.settings.bootswatchApiVersion,
+                url: this.settings.bootswatchApiUrl + "/" + this.settings.bootswatchApiVersion + ".json",
                 async: false,
                 dataType: 'json',
                 success: function (data) {
@@ -255,7 +255,7 @@
         cookieExpiration: 7,
         cookiePath: '/',
         defaultCssFile: '//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css',
-        bootswatchApiUrl: 'http://api.bootswatch.com',
+        bootswatchApiUrl: 'https://bootswatch.com/api/',
         bootswatchApiVersion: '3',
         loadFromBootswatch: true,
         localFeed: '',
