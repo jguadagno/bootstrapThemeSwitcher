@@ -254,7 +254,7 @@
         cookieThemeCss: 'boostrapTheme.css',
         cookieExpiration: 7,
         cookiePath: '/',
-        defaultCssFile: '//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css',
+        defaultCssFile: '//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',
         bootswatchApiUrl: 'https://bootswatch.com/api/',
         bootswatchApiVersion: '3',
         loadFromBootswatch: true,
